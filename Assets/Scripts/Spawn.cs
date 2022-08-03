@@ -6,12 +6,11 @@ public class Spawn : MonoBehaviour
 {
     [SerializeField] private GameObject _template;
     [SerializeField] private uint _spawnperiod = 2;
-    [SerializeField] private Transform  _points;
+    [SerializeField] private Transform _points;
 
     private Transform[] _pointsArray;
-    private bool _isSpawned = false;
     private uint _spawnCount = 0;
-    private int _pointsCount; 
+    private int _pointsCount;
     private int _spawnIndex = 0;
 
     private void Start()
@@ -29,19 +28,17 @@ public class Spawn : MonoBehaviour
 
     private void Update()
     {
-        _isSpawned = Time.time / _spawnperiod <_spawnCount;
-        
+        bool _isSpawned = Time.time / _spawnperiod < _spawnCount;
 
         if (_isSpawned == false)
         {
             GameObject newObject = Instantiate(_template, _pointsArray[_spawnIndex].position, Quaternion.identity);
-            _isSpawned = true;
             _spawnCount++;
+            Debug.Log($"{Time.time}, {_spawnCount} spawned at {_pointsArray[_spawnIndex].position}.");
             _spawnIndex++;
-            Debug.Log($"{Time.time}, {_spawnCount} spawned");
         }
 
-        if(_spawnIndex >= _pointsCount)
+        if (_spawnIndex >= _pointsCount)
         {
             _spawnIndex = 0;
         }
