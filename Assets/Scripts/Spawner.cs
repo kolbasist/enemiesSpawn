@@ -25,10 +25,10 @@ public class Spawner : MonoBehaviour
             _pointsArray[i] = _points.GetChild(i);
         }        
 
-        var spawnQueue = StartCoroutine( CreateSpawnQueue(_enemyCount));
+        var spawnQueue = StartCoroutine(SpawnQueue(_enemyCount));
     }
 
-    private IEnumerator CreateSpawnQueue(uint count)
+    private IEnumerator SpawnQueue(uint count)
     {
         var waitForFewSeconds = new WaitForSeconds(_duration);
 
