@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity;
+using UnityEngine.UI;
 
 public class Spawn : MonoBehaviour
 {
-    [SerializeField] private GameObject _template;
-    [SerializeField] private uint _spawnperiod = 2;
+    [SerializeField] private Enemy _template;
+    [SerializeField] private uint _enemyCount = 12;
+    [SerializeField] private float _duration = 2f;
     [SerializeField] private Transform _points;
 
     private Transform[] _pointsArray;
-    private uint _spawnCount = 0;
+    //private uint _spawnCount = 0;
     private int _pointsCount;
     private int _spawnIndex = 0;
 
@@ -23,24 +26,42 @@ public class Spawn : MonoBehaviour
             _pointsArray[i] = _points.GetChild(i);
         }
 
-        Debug.Log($"Spawn {_template.name} every {_spawnperiod} seconds started.");
+        Debug.Log($"Spawn {_template.name} every {_duration} seconds started.");
+
+        var spawnQueue = StartCoroutine( CreateSpawnQueue(_enemyCount));
     }
 
-    private void Update()
+    private IEnumerator CreateSpawnQueue(uint count)
     {
-        bool _isSpawned = Time.time / _spawnperiod < _spawnCount;
+        var waitForFewSeconds = new WaitForSeconds(_duration);
 
-        if (_isSpawned == false)
+        for (int i = 0; i < count; i++)
         {
-            GameObject newObject = Instantiate(_template, _pointsArray[_spawnIndex].position, Quaternion.identity);
-            _spawnCount++;
-            Debug.Log($"{Time.time}, {_spawnCount} spawned at {_pointsArray[_spawnIndex].position}.");
+            Enemy newEnemy = Instantiate(_template, _pointsArray[_spawnIndex].position, Quaternion.identity);
+            Debug.Log($"{Time.time}, _spawnCount spawned at {_pointsArray[_spawnIndex].position}.");
             _spawnIndex++;
-        }
 
-        if (_spawnIndex >= _pointsCount)
-        {
-            _spawnIndex = 0;
+            if (_spawnIndex >= _pointsCount)
+            {
+                _spawnIndex = 0;
+            }
+
+            yield return waitForFewSeconds;
         }
     }
+
+    //private void Update()
+    //{
+    //    bool _isSpawned = Time.time / _duration < _spawnCount;
+
+    //    if (_isSpawned == false)
+    //    {
+            
+    //        _spawnCount++;
+    //        
+    //        _spawnIndex++;
+    //    }
+
+        
+    //}
 }
