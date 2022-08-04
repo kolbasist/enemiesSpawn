@@ -8,13 +8,6 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        var lifeCycle = StartCoroutine(DestroyEnemy());
-    }
-
-    private IEnumerator DestroyEnemy()
-    {
-        yield return new WaitForSeconds(_lifeTime);
-
-        Destroy(gameObject);
-    }    
+        Destroy(gameObject, _lifeTime);
+    } 
 }
