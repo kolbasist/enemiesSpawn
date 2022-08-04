@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float _lifeTime;
-
-    private float _startTime;
+    [SerializeField] private float _lifeTime;    
 
     private void Start()
     {
-        _startTime = Time.time;
+        var lifeCycle = StartCoroutine(DestroyEnemy());
     }
 
-    private void Update()
+    private IEnumerator DestroyEnemy()
     {
-        if (Time.time >= _startTime + _lifeTime)
-            Destroy(gameObject);
-    }
+        yield return new WaitForSeconds(_lifeTime);
+
+        Destroy(gameObject);
+    }    
 }
