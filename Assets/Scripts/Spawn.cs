@@ -23,9 +23,7 @@ public class Spawn : MonoBehaviour
         for (int i = 0; i < _pointsCount; i++)
         {
             _pointsArray[i] = _points.GetChild(i);
-        }
-
-        Debug.Log($"Spawn {_template.name} every {_duration} seconds started.");
+        }        
 
         var spawnQueue = StartCoroutine( CreateSpawnQueue(_enemyCount));
     }
@@ -36,8 +34,7 @@ public class Spawn : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            Enemy newEnemy = Instantiate(_template, _pointsArray[_spawnIndex].position, Quaternion.identity);
-            Debug.Log($"{Time.time}, _spawnCount spawned at {_pointsArray[_spawnIndex].position}.");
+            Enemy newEnemy = Instantiate(_template, _pointsArray[_spawnIndex].position, Quaternion.identity);            
             _spawnIndex++;
 
             if (_spawnIndex >= _pointsCount)
