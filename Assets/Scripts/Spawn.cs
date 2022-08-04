@@ -11,8 +11,7 @@ public class Spawn : MonoBehaviour
     [SerializeField] private float _duration = 2f;
     [SerializeField] private Transform _points;
 
-    private Transform[] _pointsArray;
-    //private uint _spawnCount = 0;
+    private Transform[] _pointsArray; 
     private int _pointsCount;
     private int _spawnIndex = 0;
 
@@ -48,20 +47,5 @@ public class Spawn : MonoBehaviour
 
             yield return waitForFewSeconds;
         }
-    }
-
-    //private void Update()
-    //{
-    //    bool _isSpawned = Time.time / _duration < _spawnCount;
-
-    //    if (_isSpawned == false)
-    //    {
-            
-    //        _spawnCount++;
-    //        
-    //        _spawnIndex++;
-    //    }
-
-        
-    //}
+    }   
 }
